@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — Lumora Design &amp; Engineering Studio</title>
+<meta name="description" content="Practical write-ups from Lumora on DevOps, CI/CD, observability and system design." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Assets/css/blog.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr" data-rv="-14,1,210,26,150">
+  <div class="shell">
+    <button class="hdr-brand" id="brandBtn" aria-label="Harshal — home"><span class="brand" id="brandIn"><i data-i="logo">H<span>w.</span></i></span></button>
+    <nav class="pnav" aria-label="Primary">
+      <ul id="pnav"></ul>
+    </nav>
+    <div class="hdr-r">
+      <div class="clock" aria-label="Local time">
+        <span class="lb">Local time</span>
+        <span class="tm" id="clkT">9:41am</span>
+        <span class="sep">•</span>
+        <span class="dt" id="clkD">12 March, 2025</span>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mi" id="menuIn"><i data-i="grid"></i><span class="mt">Menu</span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="ph" id="top">
+  <div class="wm" aria-hidden="true">LUMORA</div>
+  <div class="shell">
+    <div class="eyebrow" data-rv="10,1,200,24,200">Blog</div>
+    <h1 data-lines="Notes on DevOps|and system design" data-ld="250" data-ls="120">Notes on DevOps and system design</h1>
+    <p class="lead" data-rv="10,1,200,24,500">Practical write-ups from the studio on shipping reliably, designing for scale and keeping systems observable.</p>
+  </div>
+</section>
+<section class="bg-white">
+  <div class="shell bl">
+    <div id="featWrap" data-rv="40,.99,180,26,0"></div>
+    <div class="flt-row" data-rv="10,1,200,24,0">
+      <span class="eyebrow box">Articles</span>
+      <div class="flt" id="flt" role="group" aria-label="Filter articles"></div>
+    </div>
+    <ul class="bgrid" id="bgrid"></ul>
+  </div>
+</section>
+</main>
+
+<footer class="ft" id="contact">
+  <div class="shell">
+    <div class="ft-cta">
+      <h2 class="ft-h2" data-ls="100">Have a project in mind? Let's get to work.</h2>
+      <span id="ctaFt"></span>
+    </div>
+    <div class="ft-cols" id="ftCols"></div>
+    <div class="legal"><span>© 2025 Lumora Studio. All rights reserved.</span><ul id="legal"></ul></div>
+  </div>
+  <div class="ft-wm" aria-hidden="true">LUMORA</div>
+</footer>
+<div id="nav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="top menu-full-width"><span class="brand"><i data-i="logo"></i>Lumora</span><button class="close-btn" id="navClose"><i data-i="x"></i>Close</button></div>
+  <div class="mid"><ul id="navList"></ul></div>
+  <div class="bot"><span id="navTime">Local time</span><button id="navStart">Start a project →</button></div>
+</div>
+<script type="module" src="Assets/js/blog.js"></script>
+</body>
+</html>

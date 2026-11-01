@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshal Warukar — Site Reliability & DevOps Engineer</title>
+  <meta name="description"
+    content="Harshal Warukar is a Site Reliability and DevOps Engineer experienced in Kubernetes, cloud infrastructure, automation, CI/CD, and observability." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Assets/css/index.css">
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ========== PAGE LOADER ========== -->
+  <div id="loader" role="status" aria-label="Loading">
+    <div id="ldC">
+      <div class="ld-brand">Hw.</div>
+      <p class="ld-tag">Infrastructure that doesn’t blink.</p>
+    </div>
+    <div class="ld-prog">
+      <div class="ld-track">
+        <div class="ld-fill" id="ldFill"></div>
+      </div>
+      <div class="ld-row"><span>Loading</span><b id="ldNum">000</b></div>
+    </div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="hdr" data-rv="-14,1,210,26,150">
+    <div class="shell">
+      <button class="hdr-brand" id="brandBtn" aria-label="Harshal — home"><span class="brand" id="brandIn"><i
+            data-i="logo">H<span>w.</span></i></span></button>
+      <nav class="pnav" aria-label="Primary">
+        <ul id="pnav"></ul>
+      </nav>
+      <div class="hdr-r">
+        <div class="clock" aria-label="Local time">
+          <span class="lb">Local time</span>
+          <span class="tm" id="clkT">9:41am</span>
+          <span class="sep">•</span>
+          <span class="dt" id="clkD">12 March, 2025</span>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mi" id="menuIn"><i
+              data-i="grid"></i><span class="mt">Menu</span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="home">
+      <div class="hero-bg" id="lr">
+        <!-- <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/lumora-e8b711fc68/hero/after.jpg"
+          alt="" fetchpriority="high" /> -->
+        <img src="after1.png" alt="" fetchpriority="high" />
+        <canvas aria-hidden="true"></canvas>
+      </div>
+      <div class="vig"></div>
+      <div class="wm" aria-hidden="true" data-rv="20,1,120,30,300,.4">HARSHAL</div>
+
+      <div class="shell hg">
+        <div class="hl">
+          <div class="eyebrow" data-rv="10,1,200,24,200">Site Reliability &amp; DevOps Engineer</div>
+          <h1 class="hero-h1" data-lines="Reliable systems,|shipped with|quiet precision" data-ld="250" data-ls="120">Infrastructure that doesn’t blink</h1>
+          <div class="rating" data-rv="10,1,200,24,650">
+            <span class="t">2+ years building and operating cloud infrastructure</span>
+          </div>
+          <div class="ctas" data-rv="10,1,200,24,750">
+            <span id="ctaTalk"></span><span id="ctaWork"></span>
+          </div>
+        </div>
+        <div class="hr">
+          <div class="hc" data-rv="16,.96,200,24,400">
+            <section class="ai-chat" aria-labelledby="aiChatTitle">
+              <div class="ai-chat-head">
+                <div class="ai-avatar"><i data-i="logo"></i></div>
+                <div class="ai-chat-heading">
+                  <h2 id="aiChatTitle">Talk to AI about me</h2>
+                  <span><i aria-hidden="true"></i>Here to help</span>
+                </div>
+                <span class="ai-label">AI</span>
+                <button class="ai-expand" id="aiChatExpand" type="button" aria-label="Maximize chat" aria-expanded="false">
+                  <i data-i="expand"></i>
+                </button>
+              </div>
+              <div class="ai-messages" id="aiMessages" data-lenis-prevent-wheel aria-live="polite" aria-label="Chat messages">
+                <div class="ai-message ai-message-bot">Hey! Ask me about Harshal’s DevOps experience, projects, technical skills, or how to get in touch.</div>
+              </div>
+              <div class="ai-suggestions" aria-label="Suggested questions">
+                <button type="button" data-question="What technologies do you work with?">Tech stack</button>
+                <button type="button" data-question="Tell me about your experience">Experience</button>
+              </div>
+              <form class="ai-chat-form" id="aiChatForm">
+                <label class="sr-only" for="aiChatInput">Ask a question about Harshal</label>
+                <input id="aiChatInput" name="question" type="text" placeholder="Ask me anything…" autocomplete="off" required>
+                <button type="submit" aria-label="Send message">→</button>
+              </form>
+            </section>
+          </div>
+          <div class="partners" data-rv="14,1,200,24,550">
+            <div class="lbl">Core stack</div>
+            <ul id="partners"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="statusbar" data-rv="0,1,200,24,900">
+        <span>Based in Nagpur, Maharashtra</span>
+        <span class="mid">AWS · GCP · Kubernetes</span>
+        <span class="rt">Scroll to explore <span aria-hidden="true">↓</span></span>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="about" style="background:#fff">
+      <div class="shell">
+        <div class="ab-l">
+          <div class="eyebrow">About Harshal</div>
+          <h2 class="ab-intro" data-lines="Hi, I am|Harshal Warukar" data-ld="180" data-ls="100">Hi, I am Harshal Warukar</h2>
+          <div class="ab-note" data-rv="12,1,200,24,0"><i data-i="globe"></i><span>Nagpur, Maharashtra, India</span></div>
+        </div>
+        <div class="ab-r">
+            <h2 class="ab-h2" id="abH2">A Site Reliability and DevOps Engineer focused on <span class="g">reliable Kubernetes platforms, cloud infrastructure, observability, and automation. At Tenarai, I operate production workloads on GKE and EKS; previously, I supported DevOps automation at Softtronix.</span></h2>
+          <div class="ab-foot" data-rv="12,1,200,24,200">
+            <div>
+              <div class="fl">Connect with me</div>
+              <div class="socials" id="socials"></div>
+            </div>
+            <!-- <span id="ctaAbout"></span> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CREATE BAND ========== -->
+    <section style="background:#fff">
+      <ul class="shell cb" id="cb"></ul>
+    </section>
+
+    <!-- ========== PORTFOLIO ========== -->
+    <section id="works" style="background:#fff">
+      <div class="shell pf">
+        <div class="pf-head" data-rv="10,1,200,24,0"><span class="eyebrow box">Projects</span></div>
+        <h2 class="pf-h2" data-ld="120">Selected Work</h2>
+        <ul class="pf-grid" id="pfGrid"></ul>
+      </div>
+    </section>
+
+    <!-- ========== SERVICES ========== -->
+    <section id="services" style="background:#fff">
+      <div class="shell sv">
+        <div data-rv="10,1,200,24,0"><span class="eyebrow">Services</span></div>
+        <h2 class="sv-h2" data-ld="120">What I do best</h2>
+        <ul id="svList"></ul>
+      </div>
+    </section>
+
+    <!-- ========== STATS ========== -->
+    <section style="background:#fff">
+      <div class="shell st">
+        <div class="st-panel" data-rv="40,.99,180,26,0">
+          <span class="eyebrow light">By the numbers</span>
+          <h2 class="st-h2" data-ld="120">Focused on measurable reliability improvements.</h2>
+          <ul class="st-grid" id="stGrid"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="ft" id="contact">
+    <div class="shell">
+      <div class="ft-cta">
+        <h2 class="ft-h2" data-ls="100">Looking for a DevOps engineer? Let’s connect.</h2>
+        <span id="ctaFt"></span>
+      </div>
+      <div class="ft-cols" id="ftCols"></div>
+      <div class="legal">
+        <span>© 2025 Harshal Warukar
+          . All rights reserved.</span>
+        <ul id="legal"></ul>
+      </div>
+    </div>
+    <div class="ft-wm" aria-hidden="true">HARSHAL</div>
+  </footer>
+
+  <!-- ========== NAV MENU ========== -->
+  <div id="nav" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="shell top" style="width:100%">
+      <span class="brand"><i data-i="logo"></i>Harshal</span>
+      <button class="close-btn" id="navClose"><i data-i="x"></i>Close</button>
+    </div>
+    <div class="shell mid">
+      <ul id="navList"></ul>
+    </div>
+    <div class="shell bot" style="width:100%">
+      <span id="navTime">Local time</span>
+      <button id="navStart">Start a project →</button>
+    </div>
+  </div>
+
+  <!-- ========== REQUEST MODAL ========== -->
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+    <div class="mp" id="mPanel">
+      <button class="mc" id="mClose" aria-label="Close"><i data-i="x"></i></button>
+      <div id="mFormWrap">
+        <div class="mh"><span class="e">Start a project</span>
+          <h2 id="mTitle">Tell us what you're building.</h2>
+        </div>
+        <form id="mform">
+          <label><span class="cap">Name</span><input type="text" name="name" required placeholder="Your name"
+              autocomplete="name"></label>
+          <label><span class="cap">Email</span><input type="email" name="email" required placeholder="you@company.com"
+              autocomplete="email"></label>
+          <label><span class="cap">Project</span><textarea name="project" rows="4" required
+              placeholder="A few words about your project, timeline, and budget."></textarea></label>
+          <div class="mrow"><span>We reply within one business day.</span><span id="mSubmit"></span></div>
+        </form>
+      </div>
+      <div id="mok" hidden>
+        <div class="badge"><i data-i="logo"></i></div>
+        <h2>Request received</h2>
+        <p>Thanks for reaching out — we'll get back to you within one business day.</p>
+        <span id="mDone"></span>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="Assets/js/index.js"></script>
+</body>
+
+</html>
