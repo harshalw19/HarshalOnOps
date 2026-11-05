@@ -6,32 +6,8 @@
     }
 
     html {
-      font-size: 16px;
+      font-size: 100%;
       -webkit-font-smoothing: antialiased
-    }
-
-    @media (max-width:1920px) {
-      html {
-        font-size: 0.833333vw
-      }
-    }
-
-    @media (max-width:1440px) {
-      html {
-        font-size: 1.111111vw
-      }
-    }
-
-    @media (max-width:1024px) {
-      html {
-        font-size: 1.5625vw
-      }
-    }
-
-    @media (max-width:640px) {
-      html {
-        font-size: 4.444444vw
-      }
     }
 
     body {
@@ -2022,6 +1998,42 @@
       resize: none
     }
 
+    #mFormStatus {
+      margin: 0;
+      color: #a33b2f;
+      font-size: .8125rem
+    }
+
+    #mSendT,
+    #cSendT {
+      color: #fff;
+      -webkit-text-fill-color: #fff
+    }
+
+    #mSend:disabled,
+    #cSend:disabled {
+      cursor: wait;
+      opacity: 1
+    }
+
+    .send-spinner {
+      width: 1rem;
+      height: 1rem;
+      flex: none;
+      border: 2px solid rgba(255, 255, 255, .35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: send-spin .7s linear infinite
+    }
+
+    .send-spinner[hidden] {
+      display: none
+    }
+
+    @keyframes send-spin {
+      to { transform: rotate(360deg) }
+    }
+
     #mform input:focus,
     #mform textarea:focus {
       border-color: rgba(17, 17, 17, .3);
@@ -2060,9 +2072,34 @@
       display: grid;
       place-items: center;
       border-radius: 9999px;
-      background: #0a0a0a;
-      color: #cf8047;
-      font-size: 1.5rem
+      background: #edf3ee;
+      color: #527b5d
+    }
+
+    #mok:not([hidden]) .success-mark svg {
+      width: 2rem;
+      height: 2rem;
+      overflow: visible;
+      animation: success-pop .45s cubic-bezier(.2, .8, .2, 1) both
+    }
+
+    #mok:not([hidden]) .success-mark path {
+      stroke: currentColor;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 30;
+      animation: success-draw .55s ease-out .12s both
+    }
+
+    @keyframes success-pop {
+      from { transform: scale(.65) }
+      to { transform: scale(1) }
+    }
+
+    @keyframes success-draw {
+      from { stroke-dashoffset: 30 }
+      to { stroke-dashoffset: 0 }
     }
 
     #mok h2 {

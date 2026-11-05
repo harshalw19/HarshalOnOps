@@ -58,7 +58,7 @@
       <div class="hero-bg" id="lr">
         <!-- <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/lumora-e8b711fc68/hero/after.jpg"
           alt="" fetchpriority="high" /> -->
-        <img src="after1.png" alt="" fetchpriority="high" />
+        <img src="Assets/Images/after1.png" alt="" fetchpriority="high" />
         <canvas aria-hidden="true"></canvas>
       </div>
       <div class="vig"></div>
@@ -214,19 +214,22 @@
           <h2 id="mTitle">Tell us what you're building.</h2>
         </div>
         <form id="mform">
-          <label><span class="cap">Name</span><input type="text" name="name" required placeholder="Your name"
-              autocomplete="name"></label>
+          <label>
+            <span class="cap">Name</span><input type="text" name="name" required placeholder="Your name"
+              autocomplete="name">
+            </label>
           <label><span class="cap">Email</span><input type="email" name="email" required placeholder="you@company.com"
               autocomplete="email"></label>
           <label><span class="cap">Project</span><textarea name="project" rows="4" required
               placeholder="A few words about your project, timeline, and budget."></textarea></label>
-          <div class="mrow"><span>We reply within one business day.</span><span id="mSubmit"></span></div>
+            <p id="mFormStatus" class="form-status" role="status" aria-live="polite" hidden></p>
+          <div class="mrow"><span>We reply within 6-7 business day.</span><span id="mSubmit"></span></div>
         </form>
       </div>
       <div id="mok" hidden>
-        <div class="badge"><i data-i="logo"></i></div>
+        <div class="badge success-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="m14 24 7 7 14-15" /></svg></div>
         <h2>Request received</h2>
-        <p>Thanks for reaching out — we'll get back to you within one business day.</p>
+        <p>Thanks for reaching out — we'll get back to you within 6-7 business days.</p>
         <span id="mDone"></span>
       </div>
     </div>

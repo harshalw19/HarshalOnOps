@@ -85,7 +85,7 @@ function initLines(el){
 /* pill */
 function pill(text,variant,arrow,act,extra=''){
   const wa=!!arrow;
-  return `<button class="pill" ${extra} data-act="${act||''}" data-arrow="${arrow||''}"><span class="pill-s"><span class="pill-in pv-${variant}${wa?' wa':''}"><span class="pt">${text}</span>${wa?`<span class="pill-b">${ic(arrow==='up-right'?'up':'arrow')}</span>`:''}</span></span></button>`;
+  return `<button type="button" class="pill" ${extra} data-act="${act||''}" data-arrow="${arrow||''}"><span class="pill-s"><span class="pill-in pv-${variant}${wa?' wa':''}"><span class="pt">${text}</span>${wa?`<span class="pill-b">${ic(arrow==='up-right'?'up':'arrow')}</span>`:''}</span></span></button>`;
 }
 function wirePills(root=document){
   $$('.pill',root).forEach(b=>{
@@ -132,7 +132,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
 $('#ctaForm').innerHTML=pill('Send a message','dark','right','form');
 $('#ctaMail').innerHTML=`<a class="pill" href="mailto:hello@Harshal.studio" data-arrow=""><span class="pill-s"><span class="pill-in pv-outline">hello@Harshal.studio</span></span></a>`;
 $('#ctaFt').innerHTML=pill('Start a project','light','up-right','form');
-$('#cSubmit').innerHTML=`<button class="pill" type="submit" id="cSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="cSendT">Send request</span><span class="pill-b">${ic('up')}</span></span></span></button>`;
+$('#cSubmit').innerHTML=`<button class="pill" type="submit" id="cSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="cSendT">Send request</span><span class="send-spinner" id="cSendSpinner" aria-hidden="true" hidden></span><span class="pill-b">${ic('up')}</span></span></span></button>`;
 $('#cAgain').innerHTML=pill('Send another','dark','','again');
 document.addEventListener('click',e=>{
   const b=e.target.closest('button.pill[data-act]'); if(!b||b.type==='submit')return;
@@ -148,12 +148,32 @@ $$('.opt').forEach(o=>o.addEventListener('click',()=>o.setAttribute('aria-presse
 const form=$('#cform');
 function resetForm(){
   form.reset(); $$('.opt').forEach(o=>o.setAttribute('aria-pressed','false'));
-  $('#cSendT').textContent='Send request';$('#cSend').disabled=false;
+  $('#cSendT').textContent='Send request';$('#cSendSpinner').hidden=true;$('.pill-b',$('#cSend')).hidden=false;$('#cSend').disabled=false;
+  $('#cFormStatus').hidden=true;$('#cFormStatus').textContent='';
   $('#cok').hidden=true;$('#cwrap').hidden=false;
 }
-form.addEventListener('submit',e=>{
-  e.preventDefault();$('#cSendT').textContent='Sending…';$('#cSend').disabled=true;
-  setTimeout(()=>{$('#cwrap').hidden=true;$('#cok').hidden=false;},700);
+const contactFormEndpoint='https://script.google.com/macros/s/AKfycbwA27K2xlwUA0mClj--EqAcSdqquBfA7YVtxTvLe-y9fj13dVPfQwgetMxNTPZsPluS/exec';
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if($('#cSend').disabled)return;
+  const payload=new URLSearchParams(new FormData(form));
+  const selectedServices=$$('.opt[aria-pressed="true"]').map(o=>o.textContent.trim());
+  if(selectedServices.length)payload.set('service',selectedServices.join(', '));
+  const status=$('#cFormStatus');
+  $('#cSendT').textContent='Sending…';$('#cSend').disabled=true;
+  $('#cSendSpinner').hidden=false;$('.pill-b',$('#cSend')).hidden=true;
+  status.hidden=true;
+  try{
+    const response=await fetch(contactFormEndpoint,{method:'POST',body:payload});
+    if(!response.ok)throw new Error(`Request failed with status ${response.status}`);
+    $('#cwrap').hidden=true;$('#cok').hidden=false;
+  }catch(error){
+    console.error('Contact form request failed:',error);
+    status.textContent='Unable to send your request. Please check your connection and try again.';
+    status.hidden=false;
+    $('#cSendT').textContent='Try again';$('#cSendSpinner').hidden=true;$('.pill-b',$('#cSend')).hidden=false;
+    $('#cSend').disabled=false;
+  }
 });
 
 /* details socials */

@@ -131,7 +131,7 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     /* ================= pill button ================= */
     function pill(text, variant, arrow, act) {
       const wa = !!arrow;
-      return `<button class="pill" data-act="${act || ''}" data-arrow="${arrow || ''}"><span class="pill-s"><span class="pill-in pv-${variant}${wa ? ' wa' : ''}">${text}${wa ? `<span class="pill-b">${ic(arrow === 'up-right' ? 'up' : 'arrow')}</span>` : ''}</span></span></button>`;
+      return `<button type="button" class="pill" data-act="${act || ''}" data-arrow="${arrow || ''}"><span class="pill-s"><span class="pill-in pv-${variant}${wa ? ' wa' : ''}">${text}${wa ? `<span class="pill-b">${ic(arrow === 'up-right' ? 'up' : 'arrow')}</span>` : ''}</span></span></button>`;
     }
     function wirePills(root = document) {
       $$('.pill', root).forEach(b => {
@@ -173,7 +173,7 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     $('#ctaWork').innerHTML = pill('View Work', 'outline', '', 'works');
     // $('#ctaAbout').innerHTML = pill('About Us', 'outline', 'right', 'about');
     $('#ctaFt').innerHTML = pill('Start a project', 'light', 'up-right', 'modal');
-    $('#mSubmit').innerHTML = `<button class="pill" type="submit" id="mSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="mSendT">Send request</span><span class="pill-b">${ic('up')}</span></span></span></button>`;
+    $('#mSubmit').innerHTML = `<button class="pill" type="submit" id="mSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="mSendT">Send request</span><span class="send-spinner" id="mSendSpinner" aria-hidden="true" hidden></span><span class="pill-b">${ic('up')}</span></span></span></button>`;
     $('#mDone').innerHTML = pill('Close', 'dark', '', 'close');
 
     /* ================= demo AI chat ================= */
@@ -357,6 +357,7 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
 
     /* ================= request modal ================= */
     const modal = $('#modal'), mPanel = $('#mPanel'); let modalOpen = false, mClosing = false;
+    const contactFormEndpoint = 'https://script.google.com/macros/s/AKfycbwA27K2xlwUA0mClj--EqAcSdqquBfA7YVtxTvLe-y9fj13dVPfQwgetMxNTPZsPluS/exec';
     const mSp = spring(260, 30, 0, x => {
       const k = Math.min(Math.max(x, 0), 1);
       modal.style.opacity = k;
@@ -365,19 +366,38 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     }, x => { if (x === 0) { modal.hidden = true; } });
     function openModal() {
       if (modalOpen) return; modalOpen = true; mClosing = false; stopScroll(); modal.hidden = false;
-      $('#mFormWrap').hidden = false; $('#mok').hidden = true; mSp.to(1);
+      $('#mFormWrap').hidden = false; $('#mok').hidden = true; $('#mFormStatus').hidden = true; $('#mFormStatus').textContent = ''; $('#mSendT').textContent = 'Send request'; $('#mSendSpinner').hidden = true; $('.pill-b', $('#mSend')).hidden = false; $('#mSend').disabled = false; mSp.to(1);
       setTimeout(() => { const f = $('input[name=name]'); f && f.focus({ preventScroll: true }); }, 200);
     }
     function closeModal() {
+      console.log("CLosing modal")
       if (!modalOpen) return; modalOpen = false; mClosing = true; mSp.to(0); startScroll();
-      setTimeout(() => { $('#mform').reset(); $('#mFormWrap').hidden = false; $('#mok').hidden = true; $('#mSendT').textContent = 'Send request'; $('#mSend').disabled = false; }, 300);
+      setTimeout(() => { $('#mform').reset(); $('#mFormWrap').hidden = false; $('#mok').hidden = true; $('#mFormStatus').hidden = true; $('#mFormStatus').textContent = ''; $('#mSendT').textContent = 'Send request'; $('#mSendSpinner').hidden = true; $('.pill-b', $('#mSend')).hidden = false; $('#mSend').disabled = false; }, 300);
     }
     $('#mClose').addEventListener('click', closeModal);
     modal.addEventListener('click', closeModal);
     mPanel.addEventListener('click', e => e.stopPropagation());
-    $('#mform').addEventListener('submit', e => {
-      e.preventDefault(); $('#mSendT').textContent = 'Sending…'; $('#mSend').disabled = true;
-      setTimeout(() => { $('#mFormWrap').hidden = true; $('#mok').hidden = false; }, 700);
+    $('#mform').addEventListener('submit', async e => {
+      e.preventDefault();
+      if ($('#mSend').disabled) return;
+      const form = e.currentTarget;
+      const payload = new URLSearchParams(new FormData(form));
+      const status = $('#mFormStatus');
+      $('#mSendT').textContent = 'Sending…'; $('#mSend').disabled = true;
+      $('#mSendSpinner').hidden = false; $('.pill-b', $('#mSend')).hidden = true;
+      status.hidden = true;
+      try {
+        const response = await fetch(contactFormEndpoint, { method: 'POST', body: payload });
+        if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+        $('#mFormWrap').hidden = true; $('#mok').hidden = false;
+      } catch (error) {
+        console.error('Apps Script request failed:', error);
+        status.textContent = 'Unable to send your request. Please check your connection and try again.';
+        status.hidden = false;
+        $('#mSendT').textContent = 'Try again';
+        $('#mSendSpinner').hidden = true; $('.pill-b', $('#mSend')).hidden = false;
+        $('#mSend').disabled = false;
+      }
     });
     addEventListener('keydown', e => { if (e.key === 'Escape') { if (aiExpanded) setAiExpanded(false); else if (modalOpen) closeModal(); else if (navOpen) closeNav(); } });
 
@@ -401,7 +421,7 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
       let W = 0, H_ = 0, loaded = false, last = null, idle = 0, raf = 0; const points = [];
       const img = new Image(); img.decoding = 'async';
       // img.onload=()=>{loaded=true;measure()}; img.src=ASSET+'/hero/before.jpg';
-      img.onload = () => { loaded = true; measure() }; img.src = 'before1.jpeg';
+      img.onload = () => { loaded = true; measure() }; img.src = 'Assets/Images/before1.jpeg';
       function measure() {
         const r = box.getBoundingClientRect(); W = cv.width = Math.max(1, Math.round(r.width * dpr)); H_ = cv.height = Math.max(1, Math.round(r.height * dpr));
         cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
