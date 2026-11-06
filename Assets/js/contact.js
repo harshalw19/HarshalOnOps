@@ -180,10 +180,13 @@ form.addEventListener('submit',async e=>{
 });
 
 /* details socials */
-$('#dsoc').innerHTML=['Behance','Dribbble','LinkedIn'].map(l=>`<a href="#"><span class="al">${l}</span></a>`).join('');
+const SOCIALS=[
+  ['GitHub','https://github.com/harshalw19'],
+  ['LinkedIn','https://www.linkedin.com/in/harshalwarukar'],
+  ['Instagram','https://www.instagram.com/harshalwarukarknow']
+];
+$('#dsoc').innerHTML=SOCIALS.map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer"><span class="al">${label}</span></a>`).join('');
 $$('#dsoc a').forEach(a=>{const s=$('.al',a);H(s,a,320,22,x=>{s.style.transform=`translateX(${4*x}px)`;s.style.opacity=.65+.35*x})});
-a_prevent();
-function a_prevent(){ $$('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault())); }
 
 /* FAQ */
 const FAQ=[
