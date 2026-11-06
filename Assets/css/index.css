@@ -311,7 +311,7 @@
       gap: .5rem;
       font-weight: 600;
       font-size: 1.5rem;
-      /* border: 1px solid rgba(255, 255, 255, .15); */
+      border: 1px solid rgba(255, 255, 255, .15);
     }
 
     .ld-brand{
@@ -386,17 +386,13 @@
       display: flex;
       align-items: center;
       gap: .5rem;
-      font-size: 1.125rem;
+      font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: -.01em;
       /* border: 1px solid rgba(230, 229, 226, .8); */
+      /* color: #cf8047 */
     }
 
-    .brand i {
-      font-size: 1.25rem;
-      /* color: #b15f2c; */
-      color: #404040;
-    }
 
     .brand i span{
       /* color: #b15f2c; */
@@ -1741,7 +1737,7 @@
       padding: 1.25rem
     }
 
-    #nav .brand i {
+    #nav .brand {
       color: #cf8047
     }
 

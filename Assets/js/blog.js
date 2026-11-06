@@ -195,7 +195,7 @@ $$('#flt button').forEach(b=>b.addEventListener('click',()=>{
 const COLS=[
  ['Company',[['About','index.html#about'],['Careers','index.html#careers'],['Blog','blog.html'],['Contact','contact.html']]],
  ['Services',[['Development','index.html#development'],['Design','index.html#design'],['Quality Assurance','index.html#qa'],['Consulting','index.html#consulting']]],
- ['Social',[['X / Twitter','#'],['Behance','#'],['Dribbble','#'],['LinkedIn','#']]]
+ ['Social',[['Behance','#'],['Dribbble','#'],['LinkedIn','#']]]
 ];
 $('#ftCols').innerHTML=`<div><span class="brand" style="font-size:1.125rem">${ic('logo')}Lumora</span><p class="ft-tag">An independent studio crafting brands, products, and the systems that connect them.</p></div>`+
  COLS.map(([h,ls])=>`<div><h4>${h}</h4><ul>${ls.map(([l,href])=>`<li><a href="${href}"><span class="al">${l}</span></a></li>`).join('')}</ul></div>`).join('');

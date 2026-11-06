@@ -107,8 +107,8 @@ function tick(){
 tick(); setInterval(tick,1000);
 
 /* nav */
-const NAV=[['Home','index.html'],['Work','index.html#works'],['Services','index.html#services'],['Studio','index.html#about'],['Careers','index.html#careers'],['Contact','contact']];
-function go(target){ if(target==='contact') scrollToId('top'); else location.href=target; }
+const NAV=[['Home','index.html'],['Work','index.html#works'],['Services','index.html#services'],['Contact','contact']];
+function go(target){ if(target==='contact') scrollToId('form'); else location.href=target; }
 $('#pnav').innerHTML=NAV.map(([l,t])=>`<li><button data-t="${t}" ${t==='contact'?'aria-current="page"':''}><span class="nl">${l}${l==='Services'?'<span class="car">▾</span>':''}</span></button></li>`).join('');
 $$('#pnav button').forEach(b=>{
   const lab=$('.nl',b); H(lab,b,320,22,x=>{lab.style.transform=`translateY(${-2*x}px)`;lab.style.opacity=.8+.2*x});
@@ -130,7 +130,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
 
 /* CTAs */
 $('#ctaForm').innerHTML=pill('Send a message','dark','right','form');
-$('#ctaMail').innerHTML=`<a class="pill" href="mailto:hello@Harshal.studio" data-arrow=""><span class="pill-s"><span class="pill-in pv-outline">hello@Harshal.studio</span></span></a>`;
+$('#ctaMail').innerHTML=`<a class="pill" href="mailto:hello@harshalwarukar.com" data-arrow=""><span class="pill-s"><span class="pill-in pv-outline">hello@harshalwarukar.com</span></span></a>`;
 $('#ctaFt').innerHTML=pill('Start a project','light','up-right','form');
 $('#cSubmit').innerHTML=`<button class="pill" type="submit" id="cSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="cSendT">Send request</span><span class="send-spinner" id="cSendSpinner" aria-hidden="true" hidden></span><span class="pill-b">${ic('up')}</span></span></span></button>`;
 $('#cAgain').innerHTML=pill('Send another','dark','','again');
@@ -140,7 +140,7 @@ document.addEventListener('click',e=>{
 });
 
 /* service options */
-const SVC=['Software Development','Product Design','Quality Assurance','Consulting','Not sure yet'];
+const SVC=['Software Development','Cloud migration','AI Automation','consulting','Not sure yet'];
 $('#opts').innerHTML=SVC.map(s=>`<button type="button" class="opt" aria-pressed="false">${s}</button>`).join('');
 $$('.opt').forEach(o=>o.addEventListener('click',()=>o.setAttribute('aria-pressed',o.getAttribute('aria-pressed')==='true'?'false':'true')));
 
@@ -152,13 +152,16 @@ function resetForm(){
   $('#cFormStatus').hidden=true;$('#cFormStatus').textContent='';
   $('#cok').hidden=true;$('#cwrap').hidden=false;
 }
-const contactFormEndpoint='https://script.google.com/macros/s/AKfycbwA27K2xlwUA0mClj--EqAcSdqquBfA7YVtxTvLe-y9fj13dVPfQwgetMxNTPZsPluS/exec';
+const contactFormEndpoint='https://script.google.com/macros/s/AKfycbxmoFIoV8HJIBKfuubYVZZljrWv4OZt61d5frX6EOb5ynYxsDbpwrsMP_dWbZmCnaZF9A/exec';
 form.addEventListener('submit',async e=>{
   e.preventDefault();
   if($('#cSend').disabled)return;
   const payload=new URLSearchParams(new FormData(form));
   const selectedServices=$$('.opt[aria-pressed="true"]').map(o=>o.textContent.trim());
-  if(selectedServices.length)payload.set('service',selectedServices.join(', '));
+  payload.set('service',selectedServices.join(', '));
+  // payload.set('services',JSON.stringify(selectedServices));
+  console.log('Form payload:',Object.fromEntries(payload.entries()));
+  console.debug('Services being submitted:',payload.get('service'),payload.get('services'));
   const status=$('#cFormStatus');
   $('#cSendT').textContent='Sending…';$('#cSend').disabled=true;
   $('#cSendSpinner').hidden=false;$('.pill-b',$('#cSend')).hidden=true;
@@ -177,18 +180,17 @@ form.addEventListener('submit',async e=>{
 });
 
 /* details socials */
-$('#dsoc').innerHTML=['X / Twitter','Behance','Dribbble','LinkedIn'].map(l=>`<a href="#"><span class="al">${l}</span></a>`).join('');
+$('#dsoc').innerHTML=['Behance','Dribbble','LinkedIn'].map(l=>`<a href="#"><span class="al">${l}</span></a>`).join('');
 $$('#dsoc a').forEach(a=>{const s=$('.al',a);H(s,a,320,22,x=>{s.style.transform=`translateX(${4*x}px)`;s.style.opacity=.65+.35*x})});
 a_prevent();
 function a_prevent(){ $$('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault())); }
 
 /* FAQ */
 const FAQ=[
- ['How quickly will you reply?','Within one business day. If your request is urgent, say so in the message and email hello@Harshal.studio as well.'],
+ ['How quickly will you reply?','Within 6-7 business day. If your request is urgent, say so in the message and email hello@harshalwarukar.com as well.'],
  ['What happens after I send a request?','We read it, reply with any questions or a call invite, and then share a scoped plan so you know what we would build, how, and when.'],
- ['Do you work with early-stage teams?','Yes. We partner with ambitious teams at any stage, from a first product to an established brand that needs to scale.'],
  ['Can you join a project already in progress?','Yes. Consulting and quality assurance engagements often start mid-project, and we can pick up design or development where it is.'],
- ['Where is the team based?','We are remote-first with a distributed team working across every time zone, so we can usually overlap with yours.']
+ ['Where I am based?',' I am based in India, but I work with clients worldwide.I am  fully remote and can collaborate across time zones.'],
 ];
 $('#fqList').innerHTML=FAQ.map(([q,a],i)=>`
 <li data-rv="24,1,200,24,${i*80}"><div class="fq">
@@ -205,16 +207,22 @@ $$('#fqList .fq').forEach(box=>{
 
 /* footer */
 const COLS=[
- ['Company',[['About','index.html#about'],['Careers','index.html#careers'],['Partners','index.html#partners'],['Contact','#top']]],
- ['Services',[['Development','index.html#development'],['Design','index.html#design'],['Quality Assurance','index.html#qa'],['Consulting','index.html#consulting']]],
- ['Social',[['X / Twitter','#'],['Behance','#'],['Dribbble','#'],['LinkedIn','#']]]
+ ['Profile',[['About','index.html#about'],['Projects','index.html#works'],['Technical strengths','index.html#services'],['Contact','#form']]],
+ ['Experience & Education',[['Tenarai · Sep 2024–Present','index.html#about'],['Softtronix · Dec 2023–May 2024','index.html#about'],['B.Tech · SB Jain Institute · 2025','index.html#about'],['AZ-900 · Google Generative AI Leader','index.html#services']]],
+ ['Contact',[
+   ['Email','mailto:harshalwarukar12@gmail.com'],
+   ['GitHub','https://github.com/harshalw19'],
+   ['LinkedIn','https://www.linkedin.com/in/harshalwarukar'],
+   ['Instagram','https://www.instagram.com/harshalwarukarknow'],
+ ]]
 ];
-$('#ftCols').innerHTML=`<div><span class="brand" style="font-size:1.125rem">${ic('logo')}Harshal</span><p class="ft-tag">An independent studio crafting brands, products, and the systems that connect them.</p></div>`+
- COLS.map(([h,ls])=>`<div><h4>${h}</h4><ul>${ls.map(([l,href])=>`<li><a href="${href}"><span class="al">${l}</span></a></li>`).join('')}</ul></div>`).join('');
-$('#legal').innerHTML=[['Privacy','index.html#privacy'],['Terms','index.html#terms']].map(([l,h])=>`<li><a href="${h}"><span class="al">${l}</span></a></li>`).join('');
+$('#ftCols').innerHTML=`<div><span class="brand" style="font-size:1.125rem"><i data-i="logo">Hw.</i></span><p class="ft-tag">Site Reliability and DevOps Engineer building dependable cloud platforms through automation and observability.</p></div>`+
+ COLS.map(([h,ls])=>`<div><h4>${h}</h4><ul>${ls.map(([l,href])=>{
+   const external=href.startsWith('https://');
+   return `<li><a href="${href}"${external?' target="_blank" rel="noopener noreferrer"':''}><span class="al">${l}</span></a></li>`;
+ }).join('')}</ul></div>`).join('');
 $$('#ftCols a').forEach(a=>{const s=$('.al',a);H(s,a,320,22,x=>{s.style.transform=`translateX(${4*x}px)`;s.style.opacity=.65+.35*x})});
-$$('#legal a').forEach(a=>{const s=$('.al',a);H(s,a,320,22,x=>{s.style.transform=`translateX(${3*x}px)`;s.style.opacity=.7+.3*x})});
-$$('#ftCols a[href="#top"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();scrollToId('top');}));
+$('#ftCols a[href="#form"]').addEventListener('click',e=>{e.preventDefault();scrollToId('form');});
 $$('#ftCols a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
 
 hydrate(); wirePills();

@@ -20,7 +20,6 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
       linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.2 3.2a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.4 9h3.7v11.8H3.4V9Zm5.9 0h3.5v1.6h.1c.49-.92 1.68-1.9 3.46-1.9 3.7 0 4.38 2.43 4.38 5.6v6.5h-3.7V15c0-1.38-.03-3.15-1.92-3.15-1.92 0-2.21 1.5-2.21 3.05v5.9H9.3V9Z"/></svg>',
       instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.7" r=".8" fill="currentColor" stroke="none"/></svg>',
       medium: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 5.2 8.6 4l5.2 10.8L19 4l3 .8v14.4l-3 .8V8.2l-5.4 11.2h-1.3L6.8 8.1v10.8L2 17.7V5.2Z"/></svg>',
-      xBrand: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.48L5.5 22H2.36l7.25-8.29L1.8 2h6.4l4.43 6.96L18.9 2Zm-1.1 18h1.73L7.28 3.88H5.42L17.8 20Z"/></svg>',
       x: S + '<path d="M4 4l16 16M20 4 4 20"/></svg>',
       dot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>',
       grid: S + '<path d="M4 6h16M4 12h16M4 18h16"/></svg>',
@@ -152,10 +151,9 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     tick(); setInterval(tick, 1000);
 
     /* ================= nav data / routing ================= */
-    const NAV = [['Home', 'home'], ['Work', 'works'], ['Services', 'services'], ['Blog', 'blog'], ['Contact', 'contact']];
+    const NAV = [['Home', 'home'], ['Work', 'works'], ['Services', 'services'], ['Contact', 'contact']];
     function navigate(id) {
-      if (id === 'blog') { window.location.href = 'blog.html'; return; }
-      if (id === 'contact') openModal(); else scrollToId(id);
+      if (id === 'contact') location.href = 'contact.html'; else scrollToId(id);
     }
 
     /* header nav */
@@ -172,7 +170,7 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     $('#ctaTalk').innerHTML = '<a class="pill" href="contact.html" data-arrow="right"><span class="pill-s"><span class="pill-in pv-dark wa">Let\'s Talk<span class="pill-b">' + ic('arrow') + '</span></span></span></a>';
     $('#ctaWork').innerHTML = pill('View Work', 'outline', '', 'works');
     // $('#ctaAbout').innerHTML = pill('About Us', 'outline', 'right', 'about');
-    $('#ctaFt').innerHTML = pill('Start a project', 'light', 'up-right', 'modal');
+    $('#ctaFt').innerHTML = `<a class="pill" href="contact.html" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-light wa">Start a project<span class="pill-b">${ic('up')}</span></span></span></a>`;
     $('#mSubmit').innerHTML = `<button class="pill" type="submit" id="mSend" data-arrow="up-right"><span class="pill-s"><span class="pill-in pv-dark wa"><span id="mSendT">Send request</span><span class="send-spinner" id="mSendSpinner" aria-hidden="true" hidden></span><span class="pill-b">${ic('up')}</span></span></span></button>`;
     $('#mDone').innerHTML = pill('Close', 'dark', '', 'close');
 
@@ -265,11 +263,9 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
     /* ================= about socials ================= */
     // socials opening on new page, aria-label for accessibility, hover scale effect
     $('#socials').innerHTML =
-      `<a class="soc" target="_blank" href="https://github.com/harshalw19" aria-label="GitHub"><span class="si">${ic('github')}</span></a>` +
-      `<a class="soc" target="_blank" href="https://www.linkedin.com/in/harshalwarukar" aria-label="LinkedIn"><span class="si">${ic('linkedin')}</span></a>` +
-      `<a class="soc" target="_blank" href="https://www.instagram.com/harshalwarukarknow" aria-label="Instagram"><span class="si">${ic('instagram')}</span></a>` +
-      `<a class="soc" target="_blank" href="https://medium.com/@harshalwarukarknow" aria-label="Medium"><span class="si">${ic('medium')}</span></a>` +
-      `<a class="soc" target="_blank" href="https://x.com/harshalw19" aria-label="X (formerly Twitter)"><span class="si">${ic('xBrand')}</span></a>`;
+      `<a class="soc" target="_blank" href="https://github.com/harshalw19" aria-label="GitHub" title="GitHub"><span class="si">${ic('github')}</span></a>` +
+      `<a class="soc" target="_blank" href="https://www.linkedin.com/in/harshalwarukar" aria-label="LinkedIn" title="LinkedIn"><span class="si">${ic('linkedin')}</span></a>` +
+      `<a class="soc" target="_blank" href="https://www.instagram.com/harshalwarukarknow" aria-label="Instagram" title="Instagram"><span class="si">${ic('instagram')}</span></a>`;
     $$('#socials .soc').forEach(a => { const s = $('.si', a); s.style.display = 'inline-flex'; H(s, a, 320, 16, x => { s.style.transform = `scale(${1 + .18 * x})` }) });
 
     /* ================= create band ================= */
@@ -321,15 +317,21 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
 
     /* ================= footer ================= */
     const COLS = [
-      ['Profile', [['About', '#about'], ['Projects', '#works'], ['Technical strengths', '#services'], ['Contact', 'mailto:harshalwarukar12@gmail.com']]],
+      ['Profile', [['About', '#about'], ['Projects', '#works'], ['Technical strengths', '#services'], ['Contact', 'contact.html']]],
       ['Experience & Education', [['Tenarai · Sep 2024–Present', '#about'], ['Softtronix · Dec 2023–May 2024', '#about'], ['B.Tech · SB Jain Institute · 2025', '#about'], ['AZ-900 · Google Generative AI Leader', '#services']]],
-      ['Contact', [['Email', 'mailto:harshalwarukar12@gmail.com'], ['Phone', 'tel:+919766629195'], ['LinkedIn', '#'], ['GitHub', '#']]]
+      ['Contact', [
+        ['Email', 'mailto:harshalwarukar12@gmail.com'],
+        ['GitHub', 'https://github.com/harshalw19'],
+        ['LinkedIn', 'https://www.linkedin.com/in/harshalwarukar'],
+        ['Instagram', 'https://www.instagram.com/harshalwarukarknow'],
+      ]]
     ];
-    $('#ftCols').innerHTML = `<div><span class="brand" style="font-size:1.125rem">${ic('logo')}Harshal</span><p class="ft-tag">Site Reliability and DevOps Engineer building dependable cloud platforms through automation and observability.</p></div>` +
-      COLS.map(([h, ls]) => `<div><h4>${h}</h4><ul>${ls.map(([l, href]) => `<li><a href="${href}"><span class="al">${l}</span></a></li>`).join('')}</ul></div>`).join('');
-    $('#legal').innerHTML = [['Privacy', '#privacy'], ['Terms', '#terms']].map(([l, h]) => `<li><a href="${h}"><span class="al">${l}</span></a></li>`).join('');
+    $('#ftCols').innerHTML = `<div><span class="brand" style="font-size:1.125rem"><i data-i="logo">Hw.</i></span><p class="ft-tag">Site Reliability and DevOps Engineer building dependable cloud platforms through automation and observability.</p></div>` +
+      COLS.map(([h, ls]) => `<div><h4>${h}</h4><ul>${ls.map(([l, href]) => {
+        const external = href.startsWith('https://');
+        return `<li><a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}><span class="al">${l}</span></a></li>`;
+      }).join('')}</ul></div>`).join('');
     $$('#ftCols a').forEach(a => { const s = $('.al', a); H(s, a, 320, 22, x => { s.style.transform = `translateX(${4 * x}px)`; s.style.opacity = .65 + .35 * x }) });
-    $$('#legal a').forEach(a => { const s = $('.al', a); H(s, a, 320, 22, x => { s.style.transform = `translateX(${3 * x}px)`; s.style.opacity = .7 + .3 * x }) });
     /* in-page anchors */
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href^="#"]'); if (!a) return;
